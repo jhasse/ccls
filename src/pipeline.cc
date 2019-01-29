@@ -262,10 +262,14 @@ bool Indexer_Parse(SemaManager *completion, WorkingFiles *wfiles,
           if (auto mtime1 = LastWriteTime(dep.first.val().str())) {
             if (dep.second < *mtime1) {
               reparse = 2;
+              LOG_S(INFO) << "timestamp changed for " << path_to_index
+                          << " via " << dep.first.val().str();
               break;
             }
           } else {
             reparse = 2;
+            LOG_S(INFO) << "timestamp changed for " << path_to_index << " via "
+                        << dep.first.val().str();
             break;
           }
         }
